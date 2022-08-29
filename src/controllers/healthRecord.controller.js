@@ -93,6 +93,7 @@ exports.updatehealthRecord = async (req, res) => {
         healthRecord.sugerLevel = req.body.sugerLevel != undefined ? req.body.sugerLevel : healthRecord.sugerLevel;
         healthRecord.tempearture = req.body.tempearture != undefined ? req.body.tempearture : healthRecord.tempearture;
         healthRecord.symptoms = req.body.symptoms != undefined ? req.body.symptoms : healthRecord.symptoms;
+        healthRecord.status = req.body.status != undefined ? req.body.status : healthRecord.status;
         
         const updatedhealthRecord = await healthRecord.save();
 

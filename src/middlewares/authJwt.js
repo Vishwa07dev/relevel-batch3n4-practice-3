@@ -73,14 +73,14 @@ const isValidUserIdInReqParam = async (req, res, next) => {
 
 const isValidhealthRecordIdInReqParam = async (req, res, next) => {
     try {
-        const healthRecord = await healthRecord.findOne({ "_id": req.params.id });
-        if (!healthRecord) {
+        const health_Record = await healthRecord.findOne({ "_id": req.params.id });
+        if (!health_Record) {
             return res.status(400).send({
                 message: "healRecordId passed doesn't exist"
             })
           
         }
-        req.paramhealthRecord = healthRecord;
+        req.paramhealthRecord = health_Record;
        
         next();
     } catch (err) { 

@@ -1,6 +1,6 @@
 
 const mongoose = require("mongoose");
-const { orderStatuses } = require("../utils/constants");
+const { healRecordStatuses } = require("../utils/constants");
 
  
 const orderSchema = new mongoose.Schema(
@@ -32,6 +32,11 @@ const orderSchema = new mongoose.Schema(
         userId : {
             type : mongoose.SchemaTypes.ObjectId,
             required : true
+        },
+        status : {
+            type : String,
+            default : healRecordStatuses.active.at,
+            enums : [healRecordStatuses.active, healRecordStatuses.inactive]
         }
         
     }, { timestamps: true, versionKey: false }

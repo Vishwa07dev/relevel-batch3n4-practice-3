@@ -1,11 +1,11 @@
-const User = require('../src/models/user.model');
-const healthRecord = require(');
+const User = require('./models/user.model');
+const healthRecord = require('./models/healthRecord.model');
 const bcrypt = require('bcryptjs');
 
 module.exports = async () => {
 
     await User.collection.drop();
-    await Order.collection.drop();
+    await healthRecord.collection.drop();
 
     try {
         const adminUser = await User.create({
