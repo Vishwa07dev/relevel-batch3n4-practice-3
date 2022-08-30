@@ -21,6 +21,9 @@ const jobSchema = new mongoose.Schema({
     temprature : {      //in celcius
         type : Number
     },
+    symptoms : {
+        type : [String]
+    },
     deleted : {
         type : Boolean,
         default : false

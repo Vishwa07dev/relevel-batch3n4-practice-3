@@ -10,6 +10,7 @@ exports.createReport = async (req,res)=>{
             bloodPressure : req.body.bloodPressure,
             sugerLevel : req.body.sugerLevel,
             temprature : req.body.temprature,
+            symptoms : req.body.symptoms
         }
     
         const report = await Job.create(data);
@@ -41,6 +42,7 @@ exports.editReport = async (req,res)=>{
         report.bloodPressure = req.body.bloodPressure ? req.body.bloodPressure : report.bloodPressure,
         report.sugerLevel = req.body.sugerLevel ? req.body.sugerLevel : report.sugerLevel,
         report.temprature = req.body.temprature ? req.body.temprature : report.temprature
+        report.symptoms = req.body.symptoms ? req.body.symptoms : report.symptoms
 
         const updatedReport = await report.save();
 
@@ -123,6 +125,7 @@ exports.getSingleReport = (req,res)=>{
         bloodPressure : report.bloodPressure,
         sugerLevel : report.sugerLevel,
         temprature : report.temprature,
+        symptoms : report.symptoms
     }
     res.status(200).send(reportObj);
 }
