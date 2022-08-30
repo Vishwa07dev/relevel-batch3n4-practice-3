@@ -1,6 +1,7 @@
+const jwt = require("jsonwebtoken");
+
 const User = require("../model/user.model");
 const serverConfig = require("../config/server.config");
-const jwt = require("jsonwebtoken");
 const constants = require("../utils/constants");
 exports.verifyJWT = async (req, res, next) => {
   // check if token exists
