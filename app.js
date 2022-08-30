@@ -19,7 +19,7 @@ db.on("error", () => {
 });
 db.once("open", () => {
     console.log("Connected to mongoDB");
-    require("./utils/initialDummyData")(User, Healthcare, bcrypt);
+    require("./utils/initialData")(User, Healthcare, bcrypt);
 });
 require("./routes/auth.route")(app);
 require("./routes/HealthTrack.route")(app);
