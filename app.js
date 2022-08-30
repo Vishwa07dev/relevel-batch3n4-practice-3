@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const User = require("./models/user.model");
-const Order = require("./models/order.model");
+const Order = require("./models/HealthTrack.model");
 
 
 app.use(bodyParser.json());
