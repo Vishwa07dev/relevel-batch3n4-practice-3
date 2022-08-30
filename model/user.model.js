@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema({
   },
   healthIds: {
     type: [mongoose.SchemaTypes.ObjectId],
+    ref: "HealthRecord",
   },
   userType: {
     type: String,
@@ -58,4 +59,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.export = new mongoose.model("users", userSchema);
+module.exports = mongoose.model("users", userSchema);

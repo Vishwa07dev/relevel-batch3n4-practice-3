@@ -14,9 +14,7 @@ exports.registration = async (req, res) => {
       height: req.body.height,
       weight: req.body.weight,
       password: bcrypt.hashSync(req.body.password, 10),
-
       userType: req.body.userType,
-      userStatus: statusVal,
     });
     response = {
       name: newUser.name,

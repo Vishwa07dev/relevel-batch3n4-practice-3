@@ -5,6 +5,17 @@ const constants = require("../utils/constants");
 
 exports.create = async (req, res, next) => {
   // height: req.body.height ? req.body.height : req.user.height,
+
+  if (
+    !req.body.weight &&
+    !req.body.height &&
+    !req.body.temperature &&
+    !req.body.bloodPressure &&
+    !req.body.sugarLevel &&
+    !req.body.symptoms
+  ) {
+    return res.status(400).send("You've to provide some input");
+  }
   if (req.body.height > 300 || req.body.height < 100) {
     return res
       .status(400)
@@ -45,7 +56,7 @@ exports.update = async (req, res, next) => {
       .status(400)
       .send("you have to provide id of the record you want to change");
   }
-  if (!mongoose.SchemaTypes.ObjectId(req.params.id)) {
+  if (!mongoose.isValidObjectId(req.params.id)) {
     return res
       .status(400)
       .send("you have to provide a valid id of the record you want to change");
@@ -64,6 +75,16 @@ exports.update = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal server err occured");
+  }
+  if (
+    !req.body.weight &&
+    !req.body.height &&
+    !req.body.temperature &&
+    !req.body.bloodPressure &&
+    !req.body.sugarLevel &&
+    !req.body.symptoms
+  ) {
+    return res.status(400).send("You've to provide some input");
   }
   // height: req.body.height ?
   if (req.body.height > 300 || req.body.height < 100) {

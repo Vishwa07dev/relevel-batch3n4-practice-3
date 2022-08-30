@@ -1,10 +1,11 @@
 const Health = require("../model/healthRecord.model");
 const constants = require("../utils/constants");
+const necessaryData = require("../utils/necessaryData");
 
 exports.create = async (req, res) => {
   let record = {
     height: req.body.height ? req.body.height : req.user.height,
-    weight: req.body.height ? req.body.height : req.user.height,
+    weight: req.body.weight ? req.body.weight : req.user.weight,
     bloodPressure: req.body.bloodPressure,
     sugarLevel: req.body.sugarLevel,
     temperature: req.body.temperature,
@@ -13,6 +14,8 @@ exports.create = async (req, res) => {
   };
   try {
     let newRecord = await Health.create(record);
+    await req.user.healthIds.push(newRecord);
+    await req.user.save();
     return res.status(201).send(`successfully added ${newRecord}`);
   } catch (err) {
     console.log(err);
@@ -21,26 +24,25 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  let record = {
-    height: req.body.height ? req.body.height : req.record.height,
-    weight: req.body.height ? req.body.height : req.record.height,
-    bloodPressure: req.body.bloodPressure
+  (req.record.height = req.body.height ? req.body.height : req.record.height),
+    (req.record.weight = req.body.weight ? req.body.weight : req.record.weight),
+    (req.record.bloodPressure = req.body.bloodPressure
       ? req.body.bloodPressure
-      : req.record.bloodPressure,
-    sugarLevel: req.body.sugarLevel
+      : req.record.bloodPressure),
+    (req.record.sugarLevel = req.body.sugarLevel
       ? req.body.sugarLevel
-      : req.record.bloodPressure,
-    temperature: req.body.temperature
+      : req.record.bloodPressure),
+    (req.record.temperature = req.body.temperature
       ? req.body.temperature
-      : req.record.temperature,
-    symptoms: req.body.symptoms ? req.body.symptoms : req.record.symptoms,
-  };
+      : req.record.temperature),
+    (req.record.symptoms = req.body.symptoms
+      ? req.body.symptoms
+      : req.record.symptoms),
+    (req.record.updatedAt = Date.now());
+
   try {
-    let newRecord = await req.record.findOneAndUpdate(req.record._id, record, {
-      returnOriginal: false,
-    });
     await req.record.save();
-    return res.status(204).send(`successfully added ${newRecord}`);
+    return res.status(200).send(req.record);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal server error try again");
@@ -54,7 +56,7 @@ exports.getUserRecord = async (req, res) => {
     req.health = req.user;
   }
   try {
-    let records = await necessaryData(req.health.healthIds);
+    let records = await necessaryData.necessaryData(req.health.healthIds);
     if (records !== "err occured") return res.status(200).send(records);
     else {
       return res.status(500).send("Internal server error try again");

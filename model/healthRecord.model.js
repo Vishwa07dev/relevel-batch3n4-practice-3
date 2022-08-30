@@ -24,6 +24,7 @@ const healthSchema = new mongoose.Schema({
   userId: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
+    ref: "User",
   },
 
   createdAt: {
@@ -36,4 +37,4 @@ const healthSchema = new mongoose.Schema({
   },
 });
 
-module.export = new mongoose.model("healthRecords", healthSchema);
+module.exports = mongoose.model("healthRecords", healthSchema);
