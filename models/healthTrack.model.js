@@ -2,24 +2,24 @@ const mongoose = require("mongoose");
 const { HealthTrackStatus } = require("../utils/constant");
 const HealthTrackSchema = new mongoose.Schema({
         weight: {
-            type: String,
+            type: Number,
             required: true,
         },
         height: {
-            type: String,
-            required: true,
+            type: Number,
+          
         },
         bloodpresure: {
-            type: String,
-            reqiured: true,
+            type: Number,
+          
         },
         sugerlevel: {
             type: String,
             required: true,
         },
         temperature: {
-            type: Srting,
-            required: true,
+            type: Number,
+          
         },
         symptoms: {
             type: String,
@@ -31,7 +31,7 @@ const HealthTrackSchema = new mongoose.Schema({
         },
         status: {
             type: String,
-            default: healRecordStatuses.active.at,
+            default: healRecordStatuses.active,
             enums: [healRecordStatuses.active, healRecordStatuses.inactive]
         }
 
