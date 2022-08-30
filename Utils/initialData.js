@@ -4,11 +4,11 @@ module.exports = async(User, HealthTrack, bcrypt) => {
     await HealthTrack.collection.drop();
 
     const user1 = await User.create({
-        name: "user1",
-        userId: "u1",
+        name: "Arun",
+        userId: "2342553",
         email: "user1@gmail.com",
         password: bcrypt.hashSync("welcome", 8),
-        orders: []
+  
     });
 
     const admin = await User.create({
@@ -20,10 +20,10 @@ module.exports = async(User, HealthTrack, bcrypt) => {
     })
 
     const user2 = await User.create({
-        name: "user2",
-        userId: "u2",
+        name: "samm",
+        userId: "u21223",
         email: "user2@gmail.com",
         password: bcrypt.hashSync("welcome", 8),
-        orders: []
+       
     });
 }
