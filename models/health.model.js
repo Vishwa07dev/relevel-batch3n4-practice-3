@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const constants = require('../utils/constants')
 
 const healthSchema = new mongoose.Schema(
     {
@@ -34,12 +33,7 @@ const healthSchema = new mongoose.Schema(
         },
         symptoms: {
             type: [String]
-        },
-        // healthStatus: {
-        //     type: String,
-        //     default : constants.healthStatus.fit,
-        //     enum : [constants.healthStatus.fit, constants.healthStatus.unfit]
-        // }
+        }
     },
     { timestamps: true, versionKey: false }
 );

@@ -4,10 +4,11 @@ const constants = require('../utils/constants');
 
 
 
-exports.createReport = async (req, res) => {
+exports.createHealthTrackReport = async (req, res) => {
 
     try{
         const user = await User.findOne({userId : req.userId});
+
         const healthObj = {
             customerId : user._id,
             height : req.body.height,
@@ -33,7 +34,7 @@ exports.createReport = async (req, res) => {
     }
 };
 
-exports.delete = async (req, res) => {
+exports.deleteHealthTrackReport = async (req, res) => {
 
     try{
 
@@ -50,7 +51,7 @@ exports.delete = async (req, res) => {
         }
         await user.save()
 
-        res.status(201).send({
+        res.status(200).send({
             message : "Successfully deleted"
         });
 
@@ -62,7 +63,7 @@ exports.delete = async (req, res) => {
     }
 };
 
-exports.update = async (req, res) => {
+exports.updateHealthTrackReport = async (req, res) => {
 
     try{
         const report  = await Health.findOne({_id : req.params.id});
@@ -80,7 +81,7 @@ exports.update = async (req, res) => {
         
         await report.save()
         
-        res.status(201).send(report);
+        res.status(200).send(report);
 
     }catch(err){
         console.log("Error while update report : ", err.message);
@@ -90,7 +91,7 @@ exports.update = async (req, res) => {
     }
 };
 
-exports.getAllReports = async (req, res) => {
+exports.getAllHealthTrackReportReports = async (req, res) => {
 
     try{
 
@@ -99,7 +100,6 @@ exports.getAllReports = async (req, res) => {
 
         let response;
 
-        // if userId pass as query and try to fetch the all report for that particular user 
         if(req.query.userId ){
             
             if(user.userType != constants.userType.admin && user.userId != req.query.userId){
@@ -112,7 +112,6 @@ exports.getAllReports = async (req, res) => {
             
         }else{
 
-            // if no query pass in api endpoint then
             if(user.userType == constants.userType.admin){
                 response = await Health.find();
 
@@ -130,13 +129,13 @@ exports.getAllReports = async (req, res) => {
     }
 };
 
-exports.getReportByReportId = async (req, res) => {
+exports.getHealthTrackReportById = async (req, res) => {
 
     try{
 
         const report = await Health.findOne({_id : req.params.id});
 
-        res.status(201).send(report);
+        res.status(200).send(report);
 
     }catch(err){
         console.log("Error while get all report by reportId : ", err.message);
