@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 exports.createHealthRecord = async (req, res) => {
     try{
         const healthObj = {
-            userId : req.body.userId,
+            userId : req.userId,
             height : req.body.height,
             weight : req.body.weight,
             bloodPressure : req.body.bloodPressure,
@@ -13,7 +13,7 @@ exports.createHealthRecord = async (req, res) => {
         }
     
         const createRecord = await Health.create(healthObj);
-        if(placedOrder){
+        if(createRecord){
             const user = await User.findOne({userId : createRecord.userId});
             user.healthRecords.push(createRecord._id);
             await user.save();
@@ -26,6 +26,7 @@ exports.createHealthRecord = async (req, res) => {
             bloodPressure : createRecord.bloodPressure,
             sugarLevel : createRecord.sugarLevel,
             symptoms : createRecord.symptoms,
+            recordId : createRecord._id
         })
     }
     catch(err){
