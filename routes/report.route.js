@@ -3,8 +3,8 @@ const {verifyTokens, verifyReportReq} = require('../middlewares')
 
 module.exports = (app)=>{
     app.post("/health/api/v1/reports/", [verifyTokens.userToken, verifyReportReq.validateNewReportBody], reportController.createReport);
-    app.put("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam, verifyReportReq.validateReportUpdateBody], reportController.editReport)
-    app.delete("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam], reportController.deleteReport)
+    app.put("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam, verifyReportReq.isAdminOrOwner], reportController.editReport)
+    app.delete("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam, verifyReportReq.isAdminOrOwner], reportController.deleteReport)
     app.get("/health/api/v1/reports/", [verifyTokens.userToken], reportController.getAllReports)
-    app.get("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam, verifyReportReq.validateReportUpdateBody], reportController.getSingleReport)
+    app.get("/health/api/v1/reports/:id", [verifyTokens.userToken, verifyReportReq.isValidReportIdInReqParam, verifyReportReq.isAdminOrOwner], reportController.getSingleReport)
 }

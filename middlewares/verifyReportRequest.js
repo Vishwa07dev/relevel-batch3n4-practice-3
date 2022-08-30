@@ -48,29 +48,21 @@ const validateNewReportBody = async (req,res,next)=>{
     }
 }
 
-const validateReportUpdateBody = async (req,res,next)=>{
-    try{
-        
-        if(req.user.userType == constants.userTypes.admin || req.jobInParams.customerId == req.user._id){
-            next();
-        }else{
-            return res.status(403).send({
-                message : "Unauthorised!"
-            });
-        }
-    }catch{
-        console.log("#### Error while validating updated report body ##### ", err.message);
-        res.status(500).send({
-            message : "Internal server error while report update validation"
-        });
+const isAdminOrOwner = (req,res,next)=>{
+    
+    if(req.user.userType == constants.userTypes.admin || req.report.customerId == req.user._id){
+        next();
+    }else{
+        return res.status(403).send({
+            message : "Only admin or owner is allowed to make this call"
+        })
     }
 }
-
 
 const verifyJobRequestBodies = {
     isValidReportIdInReqParam,
     validateNewReportBody,
-    validateReportUpdateBody
+    isAdminOrOwner
 };
 
 module.exports = verifyJobRequestBodies
