@@ -98,6 +98,8 @@ exports.getAllReports = async (req, res) => {
 
 
         let response;
+
+        // if userId pass as query and try to fetch the all report for that particular user 
         if(req.query.userId ){
             
             if(user.userType != constants.userType.admin && user.userId != req.query.userId){
@@ -110,6 +112,7 @@ exports.getAllReports = async (req, res) => {
             
         }else{
 
+            // if no query pass in api endpoint then
             if(user.userType == constants.userType.admin){
                 response = await Health.find();
 
