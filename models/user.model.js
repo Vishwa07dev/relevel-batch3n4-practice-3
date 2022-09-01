@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
     healthRecords : {
         type : [mongoose.SchemaTypes.ObjectId],
-        ref : "Order"
+        ref : "HealthRecord"
     },
     createdAt : {
         type : Date,

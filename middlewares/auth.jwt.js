@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const authConfig = require("../configs/auth.config");
 const constants = require("../utils/constants");
 const User = require("../models/user.model");
+const HealthRecord = require("../models/healthRecord.model");
 
 
 const verifyToken = (req, res, next) => {
@@ -24,38 +25,25 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-// const isAdmin = async (req, res, next) => {
-//     const callingUser = await Customer.findOne({customerId : req.customerId});
+const isAdminOrOwner = async (req, res, next) => {
+    try{
+        const callingUser = await User.findOne({userId : req.userId});
+        const healthRecord = await HealthRecord.findOne({_id : req.params.id});
 
-//     if(callingUser.userType === constants.userTypes.admin){
-//         next();
-//     }
-//     else{
-//         return res.status(403).send({
-//             message : "Only admin can request for this."
-//         });
-//     }
-// }
+        if(callingUser.userType === constants.userTypes.admin || callingUser.userId === healthRecord.userId){
+            next();
+        }
+        else{
+            return res.status(403).send({
+                message : `You are neither the admin of Health_Service_App nor the user of this record ${req.params.id}.`
+            })
+        }
+    }
+    catch(err){
+        return res.status(500).send({
+            message : "Internal server error. Please try again."
+        })
+    }
+}
 
-
-// const isAdminOrOwner = async (req, res, next) => {
-//     try{
-//         const callingUser = await User.findOne({userId : req.userId});
-
-//         if(callingUser.userType == constants.userTypes.admin || callingUser.userId == req.params.id){
-//             next();
-//         }
-//         else{
-//             return res.status(403).send({
-//                 message : "Only the admin or the owner are allowrd to make this request."
-//             })
-//         }
-//     }
-//     catch(err){
-//         return res.status(500).send({
-//             message : "Internal server error. Please try again."
-//         })
-//     }
-// }
-
-module.exports = {verifyToken};
+module.exports = {verifyToken, isAdminOrOwner};

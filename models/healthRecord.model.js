@@ -24,6 +24,10 @@ const healthRecordSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    isDeleted : {
+        type : Boolean,
+        default : false,
+    },
     createdAt : {
         type : Date,
         immutable : true,
@@ -35,4 +39,4 @@ const healthRecordSchema = new mongoose.Schema({
     },
 },{ timestamps : true, versionKey : false });
 
-module.exports = mongoose.model("Health", healthRecordSchema);
+module.exports = mongoose.model("HealthRecord", healthRecordSchema);
