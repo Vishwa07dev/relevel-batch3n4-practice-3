@@ -23,14 +23,15 @@ const tokenValidated=async(req,res,next)=>{
 }
 const isAdminorOwner=async (req,res,next)=>{
     const user=await User.findOne({userId:req.userId})
-    if(user.userType!=constants.userType.admin||req.params.id!=user.userId)
+    if(user.userType==constants.userType.admin||req.params.id==user.userId)
+    {
+        next();
+        
+    }else
     {
         return res.status(403).send({
             message:"UnAuthorise User!!!Only Admin and Owner User can Access "
         })
-    }else
-    {
-        next();
     }
     
 

@@ -47,7 +47,7 @@ const userSchema=new mongoose.Schema({
             return Date.now();
         }
     },
-    healthTracker:{
+    healthReport:{
         type:[mongoose.SchemaTypes.ObjectId],
         ref:"healthTracker"
     }

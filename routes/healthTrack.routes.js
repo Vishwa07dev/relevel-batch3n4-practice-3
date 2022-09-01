@@ -13,7 +13,7 @@ module.exports=(app)=>{
                 [auth.tokenValidated,auth.isAdminorOwner],
                 healthController.deleteRecord);
 
-    app.get("/healthTracker/api/v1/health/",
+    app.get("/healthTracker/api/v1/health/:id",
             [auth.tokenValidated,auth.isAdminorOwner],
-            healthController.findAll)
+            healthController.findById)
 }

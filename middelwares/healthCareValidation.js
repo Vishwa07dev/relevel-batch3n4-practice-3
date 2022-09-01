@@ -37,6 +37,7 @@ const healthValidation=(req,res,next)=>{
             message:"Failed!!! symptoms is not Provided"
         })
     }
+    next();
 }
 
 const healthvalid={

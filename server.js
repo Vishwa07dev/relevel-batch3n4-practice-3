@@ -53,7 +53,7 @@ async function init()
             temperature:34,
             userId:user._id 
         })
-        user.healthTracker.push(health._id,health1._id)
+        user.healthReport.push(health._id,health1._id)
         await user.save()
         console.log(user)
         console.log(health)
@@ -65,7 +65,7 @@ async function init()
 }
 
 require("./routes/auth.routes")(app)
-require("./routes/healthTrack")(app)
+require("./routes/healthTrack.routes")(app)
 app.listen(portConfig.PORT,()=>{
     console.log("Connected to PORT...",portConfig.PORT)
 })

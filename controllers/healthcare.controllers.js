@@ -14,13 +14,13 @@ exports.healthRecord=async (req,res)=>{
         symptoms:req.body.symptoms,
         userId:req.userId
     }
-    
+  
    
         const health=await healthTracker.create(healthObj)
         if(health)
         {
             const user=await User.findOne({userId:req.userId});
-            user.healthTracker.push(health._id);
+            user.healthReport.push(health._id);
             await user.save();
         }
         res.status(201).send(health)
@@ -36,14 +36,17 @@ exports.healthRecord=async (req,res)=>{
 exports.recordUpdate=async (req,res)=>{
     try{
         const health=await healthTracker.findOne({userId:req.params.id})
+       
         health.height=req.body.height!=undefined?req.body.height:health.height;
         health.weight=req.body.weight!=undefined?req.body.weight:health.weight;
         health.bloodPressure=req.body.bloodPressure!=undefined?req.body.bloodPressure:health.bloodPressure;
         health.sugarLevel=req.body.sugarLevel!=undefined?req.body.sugarLevel:health.sugarLevel;
         health.temperature=req.body.temperature!=undefined?req.body.temperature:health.temperature;
         health.symptoms=req.body.symptoms!=undefined?req.body.symptoms:health.symptoms;
+       
         const updateHealth=await health.save();
-        console.log(updateHealth)
+       
+       
         res.status(200).send({
             height:updateHealth.height,
             weight:updateHealth.weight,
@@ -66,10 +69,9 @@ exports.deleteRecord=async (req,res)=>{
     try
     {
         await healthTracker.deleteOne({userId:req.userId});
-    
-    res.status(200).send({
-        message:"Successfully Deleted.."
-    })
+        res.status(200).send({
+            message:"Successfully Deleted.."
+        })
     }catch(err)
     {
         console.log(err.message);
@@ -83,17 +85,11 @@ exports.deleteRecord=async (req,res)=>{
 }
 
 
-exports.findAll=async (req,res)=>{
-    const queryObj={}
-    const  userIdQP=req.userId
-    if(userIdQP){
-        queryObj.userId=userIdQP
-    }
-
+exports.findById=async (req,res)=>{
     try
     {
-        const healthTrac=await healthTracker.find(queryObj);
-        res.status(200).send(objectConverter.userResponse(healthTrac))
+        const healthTrac=await healthTracker.find({userId:req.params.id});
+        res.status(200).send(objectConverter.reportResponse(healthTrac))
     }catch(err)
     {
         console.log("error",err.message)
