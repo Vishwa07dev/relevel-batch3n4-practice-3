@@ -26,7 +26,7 @@ const userToken = (req,res,next)=>{
                 message : "UserId provided does not match any user"
             })
         }
-        req.user = user;        //saving user data in req
+        req.user = user;
         next();
     })
 }

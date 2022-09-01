@@ -1,6 +1,6 @@
 module.exports = {
     userTypes : {
-        customer : "Customer",
+        customer : "CUSTOMER",
         admin : "ADMIN"
     }
 }

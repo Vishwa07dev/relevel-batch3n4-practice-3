@@ -32,10 +32,10 @@ const userSchema = new mongoose.Schema({
         default : constants.userTypes.customer,
         enum : [constants.userTypes.customer, constants.userTypes.admin]
     },
-    reports : {
+    healthRecords : {
         type : [mongoose.SchemaTypes.ObjectId],
         default : [],
-        ref : "report"
+        ref : "healthRecord"
     }
 },
 { timestamps: true, versionKey: false }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const jobSchema = new mongoose.Schema({
+const healthRecordSchema = new mongoose.Schema({
     customerId : {
         type : mongoose.SchemaTypes.ObjectId,
         ref : "user",
@@ -32,4 +32,4 @@ const jobSchema = new mongoose.Schema({
 { timestamps: true, versionKey: false }
 );
 
-module.exports = mongoose.model("job",jobSchema)
+module.exports = mongoose.model("healthRecord",healthRecordSchema)

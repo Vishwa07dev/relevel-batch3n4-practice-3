@@ -7,6 +7,7 @@ const dbConfig = require('./configs/db.config');
 const bcrypt = require('bcryptjs');
 const User = require('./models/user.model');
 const constants = require('./utils/constants');
+const HealthRecord = require('./models/healthRecord.model');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
@@ -18,12 +19,14 @@ db.on("error", ()=>{
     console.log("#### Error while connecting to mongoDB ####");
 });
 db.once("open", async()=>{
+    await User.collection.drop();
+    await HealthRecord.collection.drop();
     await User.create(admin);
     console.log("#### Connected to mongoDB ####");
 });
 
 const admin = {
-    name : "Admin",
+    name : "Dharmit",
     username : "admin",
     email : "admin@app.com",
     password : bcrypt.hashSync("AdminOfApp#1", 10),
@@ -32,7 +35,7 @@ const admin = {
 
 
 require('./routes/auth.route')(app);
-require('./routes/report.route')(app);
+require('./routes/healthRecord.route')(app);
 
 app.listen(serverConfig.PORT,()=>{
     console.log(`#### connected to server at port no.: ${serverConfig.PORT} ####`);

@@ -1,9 +1,9 @@
 const verifyUserReq = require('./verifyUserRequest')
-const verifyReportReq = require('./verifyReportRequest')
+const verifyHealthRecordReq = require('./verifyHealthRecordReq')
 const verifyTokens = require('./tokenValidator')
 
 module.exports = {
     verifyUserReq,
-    verifyReportReq,
+    verifyHealthRecordReq,
     verifyTokens
 }
