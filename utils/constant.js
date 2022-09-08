@@ -1,0 +1,11 @@
+module.exports={
+    userType:{
+        customer:"CUSTOMER",
+        admin:"ADMIN"
+    },
+    userStatus:{
+        pending:"PENDING",
+        approved:"APPROVED",
+        rejected:"REJECTED"
+    }
+}
